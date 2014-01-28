@@ -878,7 +878,7 @@ namespace bts { namespace blockchain {
 
                  auto cover = itr->second.as<claim_by_cover_output>();
                  auto payoff = asset(cover.payoff_amount,cover.payoff_unit);
-                 auto payoff_threshold = asset(uint64_t(cover.payoff_amount*double(1.5)*COIN),cover.payoff_unit);
+                 auto payoff_threshold = asset(uint64_t(cover.payoff_amount*double(1.5)),cover.payoff_unit);
                  std::cerr<< std::string(payoff);
                  std::cerr<< " owner: ";
                  std::cerr<< std::string(itr->second.as<claim_by_cover_output>().owner);
