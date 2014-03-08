@@ -417,8 +417,8 @@ void trx_validation_state::validate_long( const meta_trx_input& in )
        if( split_order == output_not_found ) // must be a full order...
        {
          uint16_t sig_out   = find_unused_cover_output( 
-                                     claim_by_cover_output( output_bal * long_claim.ask_price, long_claim.pay_address ), 
-                                     2*in.output.amount.get_rounded_amount() );  // must have 2x collateral
+                                     claim_by_cover_output( output_bal/INITIAL_MARGIN_REQUIREMENT* long_claim.ask_price, long_claim.pay_address ), 
+                                     in.output.amount.get_rounded_amount()*(1+1/INITIAL_MARGIN_REQUIREMENT) );  // must have 2x collateral
 
          FC_ASSERT( sig_out != output_not_found, " unable to find cover position of ${asset} to ${pay_addr} with collateral ${collat}", 
                     ("asset", output_bal*long_claim.ask_price)("pay_addr",long_claim.pay_address)("in",in)( "collat",output_bal) );
@@ -445,8 +445,8 @@ void trx_validation_state::validate_long( const meta_trx_input& in )
          // subtract partial order from output_bal and insure the remaining order is greater than min_trade
          // look for an output making payment of the balance to the pay address
          FC_ASSERT( accepted_bal.amount > 0 )
-         uint16_t sig_out   = find_unused_cover_output( claim_by_cover_output( accepted_bal, long_claim.pay_address ), 
-                                                        2*(in.output.amount-split_out.amount).get_rounded_amount() );
+         uint16_t sig_out   = find_unused_cover_output( claim_by_cover_output( accepted_bal/INITIAL_MARGIN_REQUIREMENT, long_claim.pay_address ), 
+                                                        (in.output.amount-split_out.amount).get_rounded_amount()*(1+1/INITIAL_MARGIN_REQUIREMENT) );
          FC_ASSERT( sig_out != output_not_found );
 
          // TODO: verfiy that the collateral is >= 2x input collateral
