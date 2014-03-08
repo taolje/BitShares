@@ -1,7 +1,7 @@
 # Defines bitshares library target.
 
 project( bitshares )
-cmake_minimum_required( VERSION 2.8.12 )
+cmake_minimum_required( VERSION 2.8.11 )
 
 set( CMAKE_AUTOMOC OFF )
 
@@ -148,9 +148,13 @@ list(APPEND sources ${bitshares_headers})
 file(GLOB_RECURSE bitshares_headers src/ *.hpp *.h)
 list(APPEND sources ${bitshares_headers})
 
-IF(APPLE)
-  SET(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -std=c++11 -stdlib=libc++  -Wall" )
-ENDIF(APPLE)
+IF(UNIX)
+    SET(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -std=c++11 -Wall" )
+ELSE(UNIX)
+    IF(APPLE)
+        SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -stdlib=libc++")
+    ENDIF(APPLE)
+ENDIF(UNIX)
 
 # NOT NEEDED !!! fc module has defined its public include dir in its target_include_path and will
 # be added automatically to this module include paths!!!
@@ -159,7 +163,7 @@ ENDIF(APPLE)
 #include_directories( $Boost_INCLUDE_DIR} )
 
 add_library( bshare ${sources} )
-target_link_libraries( bshare fc leveldb upnpc-static ${BDB_LIBRARIES} ${ZLIB_LIBRARIES} ${PLATFORM_SPECIFIC_LIBS} ${rt_library} ${READLINE_LIBRARIES} ${CMAKE_DL_LIBS})
+target_link_libraries( bshare fc leveldb miniupnpc ${BDB_LIBRARIES} ${ZLIB_LIBRARIES} ${PLATFORM_SPECIFIC_LIBS} ${rt_library} ${READLINE_LIBRARIES} ${CMAKE_DL_LIBS})
 
 # All include directories required to compile dependency headers will be automatically added 
 # from dependency list specified in target_link_libraries.
