@@ -482,14 +482,11 @@ namespace bts { namespace blockchain {
 
                if( ask_itr != asks.end() )
                {
-                    working_ask   = get_output( ask_itr->location );
                     if( working_ask.claim_func == claim_by_bid )
                        stats.high_ask = working_ask.as<claim_by_bid_output>().ask_price;
                }
                if( bid_itr != bids.rend() )
                {
-                   working_bid = get_output( bid_itr->location );
-
                    if( working_ask.claim_func == claim_by_bid )
                       stats.low_bid = working_ask.as<claim_by_bid_output>().ask_price;
                    else if( working_ask.claim_func == claim_by_long )
