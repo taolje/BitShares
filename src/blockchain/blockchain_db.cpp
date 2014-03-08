@@ -182,17 +182,19 @@ namespace bts { namespace blockchain {
             void match_orders( std::vector<signed_transaction>& matched,  asset::type quote, asset::type base, price_point& stats )
             { try {
                ilog( "match orders.." );
-               uint64_t initial_depth = 0;
-               if( base == asset::bts )
-               {
-                  initial_depth = _market_db.get_depth( quote );
-                  if( initial_depth <  head_block.total_shares/100 )
-                  {
-                     wlog( "initial depth of ${initial_depth} is less than 1% of supply ${supply}",
-                            ("initial_depth",initial_depth)("supply", head_block.total_shares) );
-                     return;
-                  }
-               }
+/*                uint64_t initial_depth = 0;
+ *                if( base == asset::bts )
+ *                {
+ *                   initial_depth = _market_db.get_depth( quote );
+ *                   if( initial_depth <  head_block.total_shares/100 )
+ *                   {
+ *                      wlog( "initial depth of ${initial_depth} is less than 1% of supply ${supply}",
+ *                             ("initial_depth",initial_depth)("supply", head_block.total_shares) );
+ *                      return;
+ *                   }
+ *                }
+ */
+
                /** track how much of the order book has been consumed and stop if consumed depth 
                 * would be greater than 10% of initial depth.
                 */

@@ -154,7 +154,7 @@ namespace bts { namespace blockchain {
 
   void market_db::insert_bid( const market_order& m, uint64_t depth )
   {
-     if( depth )
+     if( 0)
      {
         auto itr = my->_depth.find( m.quote_unit );
         if( itr.valid() )
@@ -174,7 +174,7 @@ namespace bts { namespace blockchain {
   }
   void market_db::insert_ask( const market_order& m, uint64_t depth )
   {
-     if( depth )
+     if( 0)
      {
         auto itr = my->_depth.find( m.quote_unit );
         if( itr.valid() )
@@ -194,7 +194,7 @@ namespace bts { namespace blockchain {
   }
   void market_db::remove_bid( const market_order& m, uint64_t depth )
   {
-     if( depth )
+     if( 0)
      {
         auto itr = my->_depth.find( m.quote_unit );
         if( itr.valid() )
@@ -209,7 +209,7 @@ namespace bts { namespace blockchain {
   }
   void market_db::remove_ask( const market_order& m, uint64_t depth )
   {
-     if( depth )
+     if( 0)
      {
         auto itr = my->_depth.find( m.quote_unit );
         if( itr.valid() )
@@ -224,7 +224,7 @@ namespace bts { namespace blockchain {
   }
   void market_db::insert_call( const margin_call& c, uint64_t depth )
   {
-     if( depth )
+     if( 0)
      {
         auto itr = my->_depth.find( c.call_price.quote_unit );
         if( itr.valid() )
@@ -243,7 +243,7 @@ namespace bts { namespace blockchain {
 
   void market_db::remove_call( const margin_call& c, uint64_t depth )
   {
-     if( depth )
+     if( 0)
      {
         auto itr = my->_depth.find( c.call_price.quote_unit );
         if( itr.valid() )
